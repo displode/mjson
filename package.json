@@ -1,0 +1,33 @@
+{
+  "name": "@displode/mjson-xpack",
+  "version": "0.1.8-s1.2.7",
+  "description": "A source xPack for mjson",
+  "main": "",
+  "repository": "github:displode/mjson-xpack",
+  "bugs": {
+    "url": "https://github.com/displode/mjson-xpack/issues"
+  },
+  "homepage": "https://github.com/displode/mjson-xpack/",
+  "keywords": [
+    "xpack"
+  ],
+  "author": {
+    "name": "displode",
+    "email": "info@displode.com",
+    "url": "https://github.com/displode"
+  },
+  "contributors": [
+    {
+      "name": "mjson",
+      "url": "https://github.com/cesanta/mjson"
+    }
+  ],
+  "license": "MIT",
+  "xpack": {
+    "minimumXpmRequired": "0.14.0"
+  },
+  "files": [
+    "src/",
+    "inc/"
+  ]
+}
