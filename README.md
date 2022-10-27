@@ -1,8 +1,7 @@
-# mjson - a JSON parser + emitter + JSON-RPC engine
+# mjson xPack
+This is a source xPack for [mjson](https://github.com/cesanta/mjson).
 
-[![Build Status]( https://github.com/cesanta/mjson/workflows/build/badge.svg)](https://github.com/cesanta/mjson/actions)
-[![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](https://opensource.org/licenses/MIT)
-[![Code Coverage](https://codecov.io/gh/cesanta/mjson/branch/master/graph/badge.svg)](https://codecov.io/gh/cesanta/mjson)
+_mjson_ is a JSON parser, emitter and JSON-RPC engine.
 
 # Features
 
@@ -13,7 +12,7 @@
     [jsonpath](https://github.com/json-path/JsonPath)
 - Low level SAX API
 - Flexible JSON generation API - print to buffer, file, socket, etc
-- JSON-RPC client/server. Connects any microcontroller online via https://vcon.io
+- JSON-RPC client/server
 
 ## Parsing example
 
@@ -467,65 +466,3 @@ about the error, for example a faulty request.
 
 NOTE: if the request frame ID
 is not specified, this function does nothing.
-
-
-## JSON-RPC Arduino example
-
-```c
-#include "mjson.h"
-
-// Gets called by the RPC engine to send a reply frame
-static int sender(const char *frame, int frame_len, void *privdata) {
-  return Serial.write(frame, frame_len);
-}
-
-// RPC handler for "Sum". Expect an array of two integers in "params"
-static void sum(struct jsonrpc_request *r) {
-  int a = mjson_get_number(r->params, r->params_len, "$[0]", 0);
-  int b = mjson_get_number(r->params, r->params_len, "$[1]", 0);
-  jsonrpc_return_success(r, "%d", a + b);
-}
-
-void setup() {
-  jsonrpc_init(NULL, NULL);     // Initialise the library
-  jsonrpc_export("Sum", sum);   // Export "Sum" function
-  Serial.begin(115200);         // Setup serial port
-}
-
-static void handle_serial_input(unsigned char ch) {
-  static char buf[256];  // Buffer that holds incoming frame
-  static size_t len;     // Current frame length
-
-  if (len >= sizeof(buf)) len = 0;  // Handle overflow - just reset
-  buf[len++] = ch;                  // Append to the buffer
-  if (ch == '\n') {                 // On new line, parse frame
-    jsonrpc_process(buf, len, sender, NULL, NULL);
-    len = 0;
-  }
-}
-
-void loop() {
-  char buf[800];
-  if (Serial.available() > 0) {
-    int len = Serial.readBytes(buf, sizeof(buf));
-    jsonrpc_process(buf, len, sender, NULL, NULL);
-  }
-}
-```
-
-When this sketch is compiled and flashed on an Arduino
-board, start Arduino Serial Monitor, type
-`{"id": 1, "method": "Sum", "params": [2,3]}` and hit enter. You should
-see an answer frame:
-
-![](example/rpc1.png)
-
-# Example - connect Arduino Uno to AWS IoT device shadow
-
-[![](http://i3.ytimg.com/vi/od1rsIrvwrM/hqdefault.jpg)](https://www.youtube.com/watch?v=od1rsIrvwrM)
-
-See https://vcon.io for more information.
-
-# Contact
-
-Please visit https://vcon.io/contact.html
