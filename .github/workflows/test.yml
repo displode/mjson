@@ -1,22 +1,26 @@
-name: build
-on: [push, pull_request]
+name: Test
+on:
+  push:
+    branches:
+      - 'main'
+
 jobs:
   linux:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v3
     - name: test
       run: make -C test test
   macos:
     runs-on: macos-latest
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v3
     - name: make
       run: make -C test test
   windows:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v3
     - name: vc98
       run: make -C test vc98
     - name: vc2017
@@ -28,6 +32,6 @@ jobs:
   arm:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v3
     - name: arm
       run: make -C test arm
