@@ -1,13 +1,13 @@
 {
   "name": "@displode/mjson-xpack",
-  "version": "0.1.8-s1.2.7",
+  "version": "0.1.9-s1.2.7",
   "description": "A source xPack for mjson",
   "main": "",
-  "repository": "github:displode/mjson-xpack",
+  "repository": "github:displode/mjson",
   "bugs": {
-    "url": "https://github.com/displode/mjson-xpack/issues"
+    "url": "https://github.com/displode/mjson/issues"
   },
-  "homepage": "https://github.com/displode/mjson-xpack/",
+  "homepage": "https://github.com/displode/mjson",
   "keywords": [
     "xpack"
   ],
