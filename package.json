@@ -1,6 +1,6 @@
 {
   "name": "@displode/mjson-xpack",
-  "version": "0.1.9-s1.2.7",
+  "version": "0.2.0-s1.2.7",
   "description": "A source xPack for mjson",
   "main": "",
   "repository": "github:displode/mjson",
